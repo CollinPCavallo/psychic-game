@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Psychic Game</title>
+</head>
+<body>
+<h1>The Psychic Game</h1>
+<div id=game>
+<!-- <p>You Chose: <span id=choice>Guess A Letter!</span></p>
+<p>Computer Chose: </p>
+<p>Wins: </p>
+<p>Losses: </p>
+<p>Guesses Left:<span id="guess">?</span> </p> -->
+
+</div>
+
+
+
+
+
+
+<script type=text/javascript>
+
+var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var wins = 0;
+var losses = 0;
+var guessesLeft = 10;
+var alreadyGuess =[];
+
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+document.onkeyup = function(Event) {
+	var userGuess = event.key;
+	userGuess = event.key.toLowerCase();
+	
+
+
+	if (userGuess != computerGuess) {
+		guessesLeft--;
+	}
+	if (userGuess === computerGuess) {
+		wins++;
+		guessesLeft = 10;
+		computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+	}
+	if (guessesLeft < 1) {
+		losses++;
+		computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+	}
+	if (guessesLeft === 0) {
+		guessesLeft = 10;
+		alreadyGuess = [];
+	}
+	if (computerChoices.indexOf(userGuess) === -1) {
+		userGuess = "Invalid";
+		
+
+	}
+	alreadyGuess.push(userGuess);
+
+	var score = 
+	"<p>You Chose: " + userGuess + "</p>" +
+	// "<p>The Computer Chose: " + computerGuess + "</p>" +
+	"<p> Wins: " + wins + "</p>" +
+	"<p>Losses: " + losses + "</p>" +
+	"<p>Guesses Left: " + guessesLeft + "</p>" +
+	"<p>Your Guesses: " + alreadyGuess + "</p>"
+	;
+
+	document.getElementById("game").innerHTML = score;
+	document.getElementById("guess").innerHTML = guessesLeft;
+
+}
+
+
+
+	
+</script>
+
+</body>
+</html>
